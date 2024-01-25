@@ -1994,13 +1994,13 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  6421776: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
- 6421837: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
- 6421901: function() {return Module.webglContextAttributes.powerPreference;},  
- 6421959: function() {Module['emscripten_get_now_backup'] = performance.now;},  
- 6422014: function($0) {performance.now = function() { return $0; };},  
- 6422062: function($0) {performance.now = function() { return $0; };},  
- 6422110: function() {performance.now = Module['emscripten_get_now_backup'];}
+  6427632: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
+ 6427693: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
+ 6427757: function() {return Module.webglContextAttributes.powerPreference;},  
+ 6427815: function() {Module['emscripten_get_now_backup'] = performance.now;},  
+ 6427870: function($0) {performance.now = function() { return $0; };},  
+ 6427918: function($0) {performance.now = function() { return $0; };},  
+ 6427966: function() {performance.now = Module['emscripten_get_now_backup'];}
 };
 
 
@@ -10075,6 +10075,10 @@ var ASM_CONSTS = {
   }
   }
 
+  function __setDPR(float1) {
+          window.devicePixelRatio = float1;
+      }
+
   function _tzset_impl(timezone, daylight, tzname) {
       var currentYear = new Date().getFullYear();
       var winter = new Date(currentYear, 0, 1);
@@ -10123,6 +10127,16 @@ var ASM_CONSTS = {
   function _abort() {
       abort('native code called abort()');
     }
+
+  function _checkVisibility() {
+              document.addEventListener('visibilitychange', function () {
+              if (document.visibilityState == "hidden") {
+                  SendMessage("webglFpsAcceleratorManager", "OnApplicationIsInBackground");
+              } else {
+                  SendMessage("webglFpsAcceleratorManager", "OnApplicationIsNotInBackground");
+              }
+              });
+      }
 
   var readAsmConstArgsArray = [];
   function readAsmConstArgs(sigPtr, buf) {
@@ -13144,6 +13158,12 @@ var ASM_CONSTS = {
   }
   }
 
+  function _getDefaultDPR() {
+          var defaultDPR = window.devicePixelRatio;
+  
+          return defaultDPR;
+      }
+
   function _getTempRet0() {
       return getTempRet0();
     }
@@ -15505,6 +15525,14 @@ var ASM_CONSTS = {
 
   function _glViewport(x0, x1, x2, x3) { GLctx['viewport'](x0, x1, x2, x3) }
 
+  function _isAndroid2() {
+          return (/Android/i.test(navigator.userAgent));
+      }
+
+  function _isiOS2() {
+          return (/iPhone|iPad/i.test(navigator.userAgent));
+      }
+
   function _llvm_eh_typeid_for(type) {
       return type;
     }
@@ -16231,8 +16259,10 @@ var asmLibraryArg = {
   "_mktime_js": __mktime_js,
   "_mmap_js": __mmap_js,
   "_munmap_js": __munmap_js,
+  "_setDPR": __setDPR,
   "_tzset_js": __tzset_js,
   "abort": _abort,
+  "checkVisibility": _checkVisibility,
   "emscripten_asm_const_int": _emscripten_asm_const_int,
   "emscripten_asm_const_int_sync_on_main_thread": _emscripten_asm_const_int_sync_on_main_thread,
   "emscripten_cancel_main_loop": _emscripten_cancel_main_loop,
@@ -16290,6 +16320,7 @@ var asmLibraryArg = {
   "fd_read": _fd_read,
   "fd_seek": _fd_seek,
   "fd_write": _fd_write,
+  "getDefaultDPR": _getDefaultDPR,
   "getTempRet0": _getTempRet0,
   "gethostbyaddr": _gethostbyaddr,
   "gethostbyname": _gethostbyname,
@@ -16573,6 +16604,8 @@ var asmLibraryArg = {
   "invoke_vji": invoke_vji,
   "invoke_vjiiiii": invoke_vjiiiii,
   "invoke_vjjjiiii": invoke_vjjjiiii,
+  "isAndroid2": _isAndroid2,
+  "isiOS2": _isiOS2,
   "llvm_eh_typeid_for": _llvm_eh_typeid_for,
   "setTempRet0": _setTempRet0,
   "strftime": _strftime
@@ -17253,6 +17286,15 @@ var dynCall_viiiifffiiii = Module["dynCall_viiiifffiiii"] = createExportWrapper(
 var dynCall_viiiifiiiiii = Module["dynCall_viiiifiiiiii"] = createExportWrapper("dynCall_viiiifiiiiii");
 
 /** @type {function(...*):?} */
+var dynCall_ffii = Module["dynCall_ffii"] = createExportWrapper("dynCall_ffii");
+
+/** @type {function(...*):?} */
+var dynCall_iiiiffii = Module["dynCall_iiiiffii"] = createExportWrapper("dynCall_iiiiffii");
+
+/** @type {function(...*):?} */
+var dynCall_viiiiffi = Module["dynCall_viiiiffi"] = createExportWrapper("dynCall_viiiiffi");
+
+/** @type {function(...*):?} */
 var dynCall_ffffi = Module["dynCall_ffffi"] = createExportWrapper("dynCall_ffffi");
 
 /** @type {function(...*):?} */
@@ -17302,9 +17344,6 @@ var dynCall_vifiiiii = Module["dynCall_vifiiiii"] = createExportWrapper("dynCall
 
 /** @type {function(...*):?} */
 var dynCall_viffiifffiii = Module["dynCall_viffiifffiii"] = createExportWrapper("dynCall_viffiifffiii");
-
-/** @type {function(...*):?} */
-var dynCall_viiiiffi = Module["dynCall_viiiiffi"] = createExportWrapper("dynCall_viiiiffi");
 
 /** @type {function(...*):?} */
 var dynCall_fiiiiii = Module["dynCall_fiiiiii"] = createExportWrapper("dynCall_fiiiiii");
@@ -17452,9 +17491,6 @@ var dynCall_vfffi = Module["dynCall_vfffi"] = createExportWrapper("dynCall_vfffi
 
 /** @type {function(...*):?} */
 var dynCall_fifffffi = Module["dynCall_fifffffi"] = createExportWrapper("dynCall_fifffffi");
-
-/** @type {function(...*):?} */
-var dynCall_ffii = Module["dynCall_ffii"] = createExportWrapper("dynCall_ffii");
 
 /** @type {function(...*):?} */
 var dynCall_ffiffffii = Module["dynCall_ffiffffii"] = createExportWrapper("dynCall_ffiffffii");
@@ -18268,9 +18304,6 @@ var dynCall_iiiidfii = Module["dynCall_iiiidfii"] = createExportWrapper("dynCall
 
 /** @type {function(...*):?} */
 var dynCall_iiiijfii = Module["dynCall_iiiijfii"] = createExportWrapper("dynCall_iiiijfii");
-
-/** @type {function(...*):?} */
-var dynCall_iiiiffii = Module["dynCall_iiiiffii"] = createExportWrapper("dynCall_iiiiffii");
 
 /** @type {function(...*):?} */
 var dynCall_diiiidi = Module["dynCall_diiiidi"] = createExportWrapper("dynCall_diiiidi");
