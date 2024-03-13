@@ -65,7 +65,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "SEPLAG-MT",
         productName: "Inova Game",
-        productVersion: "0.9.1",
+        productVersion: "0.9.1.1",
         showBanner: unityShowBanner,
       };
 
@@ -106,6 +106,7 @@
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
               }).then((unityInstance) => {
+				window.unityInstance = unityInstance;
                 loadingBar.style.display = "none";
                 fullscreenButton.onclick = () => {
                   unityInstance.SetFullscreen(1);
@@ -118,5 +119,28 @@
       document.body.appendChild(script);
 
     </script>
+	<script type="module">
+	  // Import the functions you need from the SDKs you need
+	  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+	  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
+	  // TODO: Add SDKs for Firebase products that you want to use
+	  // https://firebase.google.com/docs/web/setup#available-libraries
+
+	  // Your web app's Firebase configuration
+	  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	  const firebaseConfig = {
+		apiKey: "AIzaSyDPVgg98MS27TfaxuixCmXy5QhVZ3nadqo",
+		authDomain: "inova-game-46342.firebaseapp.com",
+		projectId: "inova-game-46342",
+		storageBucket: "inova-game-46342.appspot.com",
+		messagingSenderId: "38237472255",
+		appId: "1:38237472255:web:8c7ec61aa742852439d3ca",
+		measurementId: "G-8H7C13HSY4"
+	  };
+
+	  // Initialize Firebase
+	  const app = initializeApp(firebaseConfig);
+	  const analytics = getAnalytics(app);
+	</script>
   </body>
 </html>
