@@ -1,6 +1,6 @@
 {
   "name": "inovagame-web",
-  "version": "1.0.0",
+  "version": "1.0-Beta",
   "description": "game",
   "main": "index.js",
   "scripts": {
