@@ -1,11 +1,23 @@
 {
   "name": "inovagame-web",
-  "version": "1.0-Beta",
-  "description": "game",
+  "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Seplag-Rosberg/InovaGame-Web.git"
+  },
+  "keywords": [
+    "game",
+    "inova"
+  ],
+  "author": "Seplag",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Seplag-Rosberg/InovaGame-Web/issues"
+  },
+  "homepage": "https://github.com/Seplag-Rosberg/InovaGame-Web#readme"
 }
